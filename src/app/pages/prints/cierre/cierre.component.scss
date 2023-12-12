@@ -1,0 +1,42 @@
+.container {
+    text-align: center;
+ }
+
+ p {
+    margin: 0px;
+ }
+
+ section {
+    margin-top: 35px;
+    border-top: 3px dashed black;
+ }
+
+ .title-section {
+    font-weight: bold;
+ }
+
+ .total {
+    text-align: right;
+    font-weight: 900;
+ }
+
+ table {
+    width: 100%;
+ }
+
+ td {
+    vertical-align: baseline;
+ }
+
+ td.quantity {
+    padding-right: 10px;
+    text-align: right;
+ }
+
+ td.name {
+    text-align: left;
+ }
+
+ td.price {
+    text-align: right;
+ }

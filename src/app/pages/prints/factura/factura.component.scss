@@ -1,0 +1,48 @@
+* {
+   font-family: "Source Code Pro", monospace;
+    font-size: 12px;
+ }
+
+ .container {
+    text-align: center;
+ }
+
+ p {
+    margin: 0rem;
+ }
+
+ table {
+    width: 100%;
+ }
+
+ td.quantity {
+    padding-right: 10px;
+    text-align: right;
+ }
+
+ td.name {
+    text-align: left;
+ }
+
+ td.price {
+    text-align: right;
+ }
+
+ .ticket-separator:before {
+   content: "------------------------------------------------";
+ }
+
+ .ticket-separator-after:after {
+   content: "************************************************";
+ }
+
+ .ticket-separator2:before {
+   content: ":::::::::::::::::::::::::::::::::::::::::::::::::";
+ }
+ 
+ @media print {
+    @page {
+       size: auto;
+       margin: 0mm;
+    }
+ }

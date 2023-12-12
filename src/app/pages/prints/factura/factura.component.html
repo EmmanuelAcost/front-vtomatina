@@ -1,0 +1,93 @@
+<div class="container">
+
+    <header class="header">
+       <p> <strong> {{facturas.nombreEmpresaArr.valor}}  </strong> </p>
+       <p> NIT {{facturas.nitArr.valor}}   </p>
+       <p> {{facturas.regimenArr.valor}} </p>
+       <p> {{facturas.direccionArr.valor}}  </p>
+       <p> {{facturas.factura.bodega_nombre}} </p>
+    </header>
+
+    <div class="ticket-separator"></div>
+
+    <header class="header">
+       <p> <strong>CAJERO:</strong> </p>
+       <p> <strong>FECHA:</strong>  {{facturas.factura.fecha}} </p>
+       <p> <strong>FACTURA DE VENTA:</strong>{{facturas.factura.bodega_prefijo}} {{facturas.factura.numdoc}} </p>
+       <p> <strong>CLIENTE:</strong>  {{facturas.factura.cliente_nombre}}</p>
+       <p> <strong>NIT:</strong> {{facturas.factura.idtercero | number}}</p>
+       <p> <strong>COND. PAGO:</strong> DECONTADO </p>
+    </header>
+    <div class="ticket-separator"></div>
+    <section>
+       <table>
+          <tbody>
+               <tr *ngFor="let f of facturas.facturaDetalle">
+                  <td class="quantity">{{f.articulo_cantidad}}</td>
+                  <td class="name">{{f.articulo_nombre}}</td>
+                  <td class="price">$ {{f.totalfactura | currency: 'USD' : 'symbol' : '1.0-0'}}</td>
+               </tr>
+          </tbody>
+       </table>
+    </section>
+
+
+    <section>
+      <div class="ticket-separator-after"></div>
+       <table>
+          <tbody>
+            
+             <tr>
+                <td class="price" *ngFor="let p of facturas.formadePafos">
+                     PAGO {{p.nombre_pago}} : <strong> {{p.vlrpago | currency: 'USD' : 'symbol' : '1.0-0'}} </strong> 
+               </td>
+             </tr>
+             <tr>
+                <td class="price">ST: <strong> {{facturas.factura.vlrtotal - totalICO | currency: 'USD' : 'symbol' : '1.0-0'}}</strong></td>
+             </tr>
+             <tr>
+                <td class="price">ICO 8%: <strong> {{totalICO | currency: 'USD' : 'symbol' : '1.0-0'}}</strong></td>
+             </tr>
+             <tr>
+                <td class="price">TL: <strong> {{facturas.factura.vlrtotal | currency: 'USD' : 'symbol' : '1.0-0'}}</strong></td>
+             </tr>
+          </tbody>
+       </table>
+     
+       <div class="ticket-separator-after"></div>
+
+       <div>
+          <p style="font-size: 0.9rem; margin-top: 0.7rem;">AUTORIZACION NUMERACION DE FACTURACION <br>
+          <strong>NUMERO:</strong> {{facturas.factura.bodega_resolucion}}
+          </p>
+       </div>
+      
+       <div>
+          <p style="font-size: 0.9rem; margin-top: 0.7rem;"><strong>NUMERACION:</strong> AUTORIZADA <br>
+                <strong>RANGO: </strong> {{facturas.factura.bodega_rango}}
+          </p>
+       </div>
+       <div>
+          <p style="font-size: 0.9rem; margin-top: 0.7rem;">DOCUMENTO ELABORADO POR SISTEMA P.O.S. <br>
+           NO SOMOS AUTORRETENEDORES<br>
+           NO SOMOS GRANDES CONTRIBUYENTES <br>
+           REGIMEN SIMPLE DE FACTURACION <br>
+           SOMOS RESPONSABLE DE IPOCONSUMO
+          </p>
+       </div>
+
+       <div class="ticket-separator2"></div>
+
+       <div>
+          <p style="font-size: 0.1875cm;"> <strong> ELABORADO. PUNTO DE VENTA <br>
+                FACTURA GENERADA POR SOFTWARE DE <br>
+                DIXHI COMPANY <br>
+                NIT: 901228648-0
+             </strong> </p>
+       </div>
+
+         <div class="ticket-separator2"></div>
+    </section>
+
+ </div>
+ <p>-</p>

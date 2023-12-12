@@ -1,0 +1,87 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+
+    <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active" aria-current="page">Facturacion</li>
+        </ol>
+    </nav>
+
+    <div >
+        <button class="btn btn-success" (click)="crear()" *ngIf="pantalla == 1">Nueva factura</button>
+        <br> <br>
+    
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Fecha inicial</label>
+                    <input type="date" class="form-control" [(ngModel)]="fecha1">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Fecha final</label>
+                    <input type="date" class="form-control" [(ngModel)]="fecha2">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-success" (click)="buscarFactura()" *ngIf="pantalla == 1">Buscar</button>
+            </div>
+        </div>
+        <br> <br>
+    
+        <div id="containerLoading" *ngIf="status">
+            <img src="../../assets/loading.gif" alt="Loadng">
+        </div>
+        
+        <div class="table-responsive">
+            <table datatable  [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="table table-bordered table-sm" >
+                <thead>
+                <tr>
+                    <th>PREFIJO PRE-FACTURA</th>
+                    <th>NUM PRE-FACTURA</th>
+                    <th>PREFIJO FACTURA</th>
+                    <th>NUM FACTURA</th>
+                    <th>TOTAL</th>
+                    <th>FECHA</th>
+                    <th>DETALLES</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let t of tabla" [ngClass]="{'table-success': t.estado == 0}">
+                        <td>{{t.idprefijo}}</td>
+                        <td>{{t.numdoc}}</td>
+                        <td>{{t.factura_prefijo}}</td>
+                        <td>{{t.factura_num}}</td>
+                        <td>{{t.factura_total | currency}}</td>
+                        <td>{{fechaHora(t.fecha)}}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <button class="btn btn-outline-success" *ngIf="t.factura_num" (click)="imprimir(t)"><i class="fas fa-print"></i></button>
+                                <button class="btn btn-outline-success" *ngIf="!t.factura_num" (click)="continuar(t)"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="overlay" *ngIf="pantalla == 2"></div>
+
+    <div *ngIf="pantalla == 2">
+
+        <div class="container2">
+            
+            <div class="aperura">
+                <h1>Para continuar debes hacer la apertura</h1>
+                <button  routerLink="/apertura" class="btn btn-success" >Abrir Turno</button> <br>
+                <img class="img-fluid" src="../../../assets/vaso-remove.png" alt="">
+            </div>
+        </div>
+
+    </div>
+
+</div>
+  

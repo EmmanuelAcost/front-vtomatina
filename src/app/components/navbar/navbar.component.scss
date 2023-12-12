@@ -1,0 +1,153 @@
+.navbar {
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: linear-gradient(
+    90deg,
+    rgba(165, 247, 39, 0.7) 0%,
+    rgba(255, 247, 34, 0.7) 49%,
+    rgba(165, 247, 39, 0.7) 100%
+  );
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  // border: 1px rgb(230, 229, 229) solid;
+  border-radius: 10px;
+  padding: 5px 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.profile-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.profile-name {
+  font-weight: bold;
+  color: #333;
+}
+.profile-rol {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+.profile-toggle {
+  border: none;
+  background: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-options {
+  position: absolute;
+  top: 103%;
+  right: 5px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: grid;
+  z-index: 1000;
+  width: 96%;
+}
+
+.profile-options a {
+  color: #333;
+  text-decoration: none;
+  padding: 10px 20px;
+  transition: background-color 0.2s;
+}
+
+.profile-options a:hover {
+  background-color: #f0f0f0;
+}
+
+// SIDEBAR
+#sidebar {
+  width: 270px;
+  height: 89%;
+  background-color: #333;
+  position: fixed;
+  left: -270px;
+  transition: left 0.3s;
+  z-index: 999999;
+}
+
+#sidebar.open {
+  left: 0;
+}
+
+#sidebar ul {
+  list-style-type: none;
+  padding-top: 30px;
+  padding-left: 0;
+}
+#sidebar ul li {
+  padding: 10px;
+  padding-left: 2rem;
+}
+#sidebar ul li:hover {
+  padding-left: 2rem;
+}
+
+#sidebar ul li a {
+  color: #6c757d;
+  text-decoration: none;
+  font-size: 16px;
+}
+#sidebar ul li a:hover {
+  font-weight: bold;
+  color: #cff725;
+}
+
+.submenu {
+  display: none;
+  list-style: none;
+}
+
+.submenu.open {
+  display: block;
+  padding-top: 0px !important;
+}
+
+.submenu li {
+  padding: 5px;
+}
+.icon-menu {
+  // max-height: 80px;
+  margin-left: 30px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.icon-menu a {
+  font-size: 30px;
+  color: #333;
+  position: relative;
+  font-weight: bold;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.icon-item-menu {
+  font-size: 22px;
+}
+
+.selected-option {
+  font-weight: bold;
+  // background-color: red;
+}

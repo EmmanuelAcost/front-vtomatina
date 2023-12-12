@@ -1,0 +1,33 @@
+.container {
+    box-sizing: border-box;
+    font-family: monospace;
+    background-color: #ffffff;
+  
+   
+    div {
+        animation: slide 5s linear infinite;
+        background: url("../../../assets/fondo.jpg");
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        font-family: "Changa One", cursive;
+        font-size: 5vh;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+
+        img{
+            width: 400px;
+        }
+    }
+}
+
+
+@keyframes slide {
+    0% {
+        background-position: 0%;
+    }
+    100% {
+        background-position: -100%;
+    }
+}

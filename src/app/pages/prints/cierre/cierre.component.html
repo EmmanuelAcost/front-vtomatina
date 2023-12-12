@@ -1,0 +1,82 @@
+<div class="container">
+
+    <header>
+       <p><?php echo $empresaNombre['valor'] ?></p>
+       <p>NIT<?php echo $empresaNit['valor'] ?></p>
+       <p><?php echo $empresaRegimen['valor'] ?></p>
+       <p><?php echo $empresaDireccion['valor'] ?></p>
+       <p>RES DIAN #<?php echo $bodega['resolucion'] ?></p>
+       <p>FECHA:<?php echo date("d/m/Y", strtotime($infoTurno['fechaapertura'])) ?></p>
+       <p><?php echo $bodega['nombre'] ?></p>
+    </header>
+
+    <section>
+       <p class="title-section">TOTAL POR TIPO DE FACTURA</p>
+       <table>
+          <thead>
+             <tr>
+                <th>Num doc</th>
+                <th>Factura</th>
+                <th>Valor</th>
+             </tr>
+          </thead>
+          <tbody>
+                <tr>
+                   <td>{{numMin | number}} - {{numMax}}</td>
+                   <td>{{factura}}</td>
+                   <td>{{valor | currency: 'USD' : 'symbol' : '1.0-0' }}</td>
+                </tr>
+          </tbody>
+       </table>
+    </section>
+
+    <section>
+       <p class="title-section">TOTAL FORMAS DE PAGO</p>
+       <?php foreach ($facturaTipoPago as $item) :
+          echo '<p>' . $item['nombre_pago'] . ':' . number_format($item['total']) . '</p>';
+          $paper = $paper + 15;
+       endforeach ?>
+    </section>
+
+    <section>
+       <p class="title-section">VENTAS DE ARTICULOS</p>
+       <table>
+          <tbody>
+            <tr *ngFor="let p of arrDetalle">
+                <td class="quantity">{{p.cantidad}}</td>
+                <td class="name">{{p.idarticulo}}</td>
+                <td class="price">{{p.vlrtotal  | currency: 'USD' : 'symbol' : '1.0-0'}}</td>
+            </tr>
+          </tbody>
+       </table>
+       <p class="total">Total:</p>
+    </section>
+
+    <section>
+       <p class="title-section">STOCK DE LOS ARTICULOS</p>
+       <table>
+          <tbody>
+             <?php
+             foreach ($stockArticulos as $value) :
+
+                $stock = ($value['cantidad']) ? $value['cantidad'] : 0;
+
+             ?>
+                <tr>
+                   <td class="quantity"><?php echo $stock ?></td>
+                   <td class="name"><?php echo $value['nombre_articulo'] ?></td>
+                </tr>
+             <?php
+                $paper = $paper + 15;
+             endforeach;
+             ?>
+          </tbody>
+       </table>
+    </section>
+
+    <p style="text-align: center; margin-top: 1rem;"><?php echo $_SESSION['usuario'] ?></p>
+
+ </div>
+ <br><br>
+ <p>-</p>
+ <br>
