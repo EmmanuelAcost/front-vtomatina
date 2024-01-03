@@ -12,11 +12,14 @@ export class ApiService {
   ) { }
 
   viewAll(): Observable<any>{ 
-    return this.httpService.get(`vtaturno`);
+    return this.httpService.get(`turn`);
   }
 
   viewFacturaApertura(idempresa:number,idbodega:string,idturno:number): Observable<any>{ 
     return this.httpService.get(`vtafactura/viewApertura/${idempresa}/${idbodega}/${idturno}`);
+  }
+  createTurn():Observable <any>{
+    return this.httpService.post('',{})
   }
 
 }

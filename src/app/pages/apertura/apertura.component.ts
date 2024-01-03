@@ -8,14 +8,14 @@ import * as dayjs from 'dayjs';
 import 'dayjs/locale/es';
 
 export interface aperturaInter {
-  id:            number;
-  idempresa:     number;
-  idbodega:      string;
-  idturno:       number;
+  id: number;
+  idempresa: number;
+  idbodega: string;
+  idturno: number;
   fechaapertura: string;
-  fechacierre:   string;
-  idusuario:     string;
-  base:          string;
+  fechacierre: string;
+  idusuario: string;
+  base: string;
 }
 
 
@@ -30,11 +30,11 @@ export class AperturaComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
-  public tabla:any = [];
+  public tabla: any = [];
 
   constructor(
-    private http:ApiService,
-  ) {}
+    private http: ApiService,
+  ) { }
 
   ngOnInit(): void {
 
@@ -46,53 +46,55 @@ export class AperturaComponent implements OnInit {
 
   }
 
-  viewAll(){
+  viewAll() {
 
     Loading.standard('Loading...');
 
-    this.http.viewAll().subscribe( (res:any) => {
-     
-     
-      if( res.length ){
-          this.tabla = res;
-          this.dtTrigger.next(res);
-      }else{
+    this.http.viewAll().subscribe((res: any) => {
+
+
+      if (res.length) {
+        this.tabla = res;
+        this.dtTrigger.next(res);
+      } else {
         this.tabla = [];
       }
-     
+
       Loading.remove();
     },
-    (err: any)=>{
-      Loading.remove();
-      console.log(err);
-    });
-    
-  }
-
-  crear(){
+      (err: any) => {
+        Loading.remove();
+        console.log(err);
+      });
 
   }
 
-  async imprimir(t:aperturaInter) {
-   
+  crear() {
+    this.http.viewAll().subscribe((res: any) => {
+      console.log(res)
+    })
+  }
+
+  async imprimir(t: aperturaInter) {
+
     Loading.standard('Loading...');
 
-    this.http.viewFacturaApertura( t.idempresa, t.idbodega, t.idturno ).subscribe( (res:any) => {
+    this.http.viewFacturaApertura(t.idempresa, t.idbodega, t.idturno).subscribe((res: any) => {
       window.open(`cierre;data=${JSON.stringify(res)}`, '_blank');
       Loading.remove();
     },
-    (err: any)=>{
-      Loading.remove();
-      console.log(err);
-    });
-    
-  }
-
-  continuar(t:any){
+      (err: any) => {
+        Loading.remove();
+        console.log(err);
+      });
 
   }
 
-  fechaHora(f:string){
+  continuar(t: any) {
+
+  }
+
+  fechaHora(f: string) {
 
     return dayjs(f).format('YYYY-MM-DD');
   }

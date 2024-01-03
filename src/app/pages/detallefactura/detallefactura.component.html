@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container-fluid">
   <div class="row">
-    <nav aria-label="breadcrumb">
+    <!-- <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <a routerLink="/prefactura">Facturacion</a>
@@ -10,7 +10,7 @@
           Factura detalle
         </li>
       </ol>
-    </nav>
+    </nav> -->
     <!-- DIVICION DE CATEGORIAS -->
     <div class="col-md-2">
       <div class="content-cat">
@@ -21,7 +21,7 @@
           role="group"
           aria-label="Basic checkbox toggle button group"
         >
-          <label class="" for="btncheck1">{{ c.detalle }}</label>
+          <label class="" for="btncheck1">{{ c.detail }}</label>
         </div>
       </div>
     </div>
@@ -39,40 +39,36 @@
               placeholder="Fltrar..."
               aria-label="Username"
               aria-describedby="basic-addon1"
-              (keyup)="focusQuiere($event,'b')"
+              (keyup)="focusQuiere($event, 'b')"
             />
           </div>
 
-          <h1 class="text-center text-success">{{nameCategory}}</h1>
+          <h1 class="text-center text-success">{{ nameCategory }}</h1>
 
-          <div
-            class="col-md-4"
-            *ngFor="let p of products2"
-          >
-            <div class="content-prod m-2"  *ngIf="!p.variantes.length"  (click)="addProducts(p)">
-              <img
-                src="../../../assets/logo.png"
-                class="img-fluid"
-                alt="..."
-              />
+          <div class="col-md-4" *ngFor="let p of products2">
+            <div
+              class="content-prod m-2"
+              *ngIf="!p.variantes.length"
+              (click)="addProducts(p)"
+            >
+              <img src="../../../assets/logo.png" class="img-fluid" alt="..." />
               <div class="content-txt-prod">
                 <p class="title-prod">{{ p.name }}</p>
                 <span class="price-prod">{{ p.price | currency }}</span>
               </div>
             </div>
 
-            <div class="content-prod m-2"  *ngIf="p.variantes.length" (click)="open(content3,p)">
-              <img
-                src="../../../assets/logo.png"
-                class="img-fluid"
-                alt="..."
-              />
+            <div
+              class="content-prod m-2"
+              *ngIf="p.variantes.length"
+              (click)="open(content3, p)"
+            >
+              <img src="../../../assets/logo.png" class="img-fluid" alt="..." />
               <div class="content-txt-prod">
                 <p class="title-prod">{{ p.name }}</p>
                 <span class="price-prod">{{ p.price | currency }}</span>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -82,19 +78,31 @@
       <div class="card">
         <div class="row">
           <div class="col-md-11 mx-auto">
-            
             <div class="d-grid gap-2">
-              <div class="btn-group-vertical btn-group-lg" role="group" aria-label="Basic outlined example">
-                <button type="button" class="btn btn-outline-success" (click)="open(content,[])">
-                  <small>Concepto: {{varConcepto.label}}</small>
+              <div
+                class="btn-group-vertical btn-group-lg"
+                role="group"
+                aria-label="Basic outlined example"
+              >
+                <button
+                  type="button"
+                  class="btn btn-outline-success"
+                  (click)="open(content, [])"
+                >
+                  <small>Concepto: {{ varConcepto.label }}</small>
                 </button>
-                <button type="button" class="btn btn-outline-success" (click)="open(content2,[])">
-                  <small>Clientes: <br>
-                  {{varClient.label}}</small>
+                <button
+                  type="button"
+                  class="btn btn-outline-success"
+                  (click)="open(content2, [])"
+                >
+                  <small
+                    >Clientes: <br />
+                    {{ varClient.label }}</small
+                  >
                 </button>
               </div>
             </div>
-
           </div>
         </div>
 
@@ -112,10 +120,14 @@
             <tbody *ngFor="let t of productsSelect">
               <tr *ngIf="!t.variantes.length">
                 <td scope="row">{{ t.t_name }}</td>
-                <td>{{ t.vlrunitario | currency: 'USD' : 'symbol' : '1.0-0' }}</td>
-                <td>{{ t.cantidad | number }}</td>
-                <td>{{ t.vlrtotal  | currency: 'USD' : 'symbol' : '1.0-0'}}</td>
-                <td >
+                <td>
+                  {{ t.vlrunitario | currency : "USD" : "symbol" : "1.0-0" }}
+                </td>
+                <td>{{ t.amount | number }}</td>
+                <td>
+                  {{ t.vlrtotal | currency : "USD" : "symbol" : "1.0-0" }}
+                </td>
+                <td>
                   <div
                     class="btn-group"
                     role="group"
@@ -124,7 +136,7 @@
                     <button
                       type="button"
                       class="btn btn-danger"
-                      (click)="deleteProducts(t.id,0)"
+                      (click)="deleteProducts(t.id, 0)"
                     >
                       <i class="fa-solid fa-trash"></i>
                     </button>
@@ -146,11 +158,15 @@
                 </td>
               </tr>
               <tr *ngFor="let v of t.variantes">
-                <td scope="row">{{ t.t_name }} ({{v.descripcion}})</td>
-                <td>{{ t.vlrunitario | currency: 'USD' : 'symbol' : '1.0-0' }}</td>
+                <td scope="row">{{ t.t_name }} ({{ v.descripcion }})</td>
+                <td>
+                  {{ t.vlrunitario | currency : "USD" : "symbol" : "1.0-0" }}
+                </td>
                 <td>{{ v.item | number }}</td>
-                <td>{{ t.vlrunitario  | currency: 'USD' : 'symbol' : '1.0-0'}}</td>
-                <td >
+                <td>
+                  {{ t.vlrunitario | currency : "USD" : "symbol" : "1.0-0" }}
+                </td>
+                <td>
                   <div
                     class="btn-group"
                     role="group"
@@ -159,7 +175,7 @@
                     <button
                       type="button"
                       class="btn btn-danger"
-                      (click)="deleteProducts(t.id,v.id)"
+                      (click)="deleteProducts(t.id, v.id)"
                     >
                       <i class="fa-solid fa-trash"></i>
                     </button>
@@ -176,16 +192,15 @@
               Total articulos: {{ totalArticulos | number }}
             </li>
             <li class="breadcrumb-item" aria-current="page">
-              Subtotal: {{ subTotal | currency: 'USD' : 'symbol' : '1.0-0' }}
+              Subtotal: {{ subTotal | currency : "USD" : "symbol" : "1.0-0" }}
             </li>
             <li class="breadcrumb-item text-success" aria-current="page">
-              Total: {{ total | currency: 'USD' : 'symbol' : '1.0-0' }}
+              Total: {{ total | currency : "USD" : "symbol" : "1.0-0" }}
             </li>
           </ol>
         </nav>
 
         <div class="row m-2">
-
           <div class="col-md-12s">
             <div class="input-group mb-3">
               <span class="input-group-text" id="basic-addon1">
@@ -193,12 +208,12 @@
               </span>
               <input
                 type="number"
-                class="form-control {{classErro}}"
+                class="form-control {{ classErro }}"
                 placeholder="Efectivo"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 [(ngModel)]="efectivo"
-                (keyup)="focusQuiere($event,'e')"
+                (keyup)="focusQuiere($event, 'e')"
               />
             </div>
           </div>
@@ -213,12 +228,12 @@
               </span>
               <input
                 type="number"
-                class="form-control {{classErro}}"
+                class="form-control {{ classErro }}"
                 placeholder="Tajetas"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 [(ngModel)]="tarjetas"
-                (keyup)="focusQuiere($event,'t')"
+                (keyup)="focusQuiere($event, 't')"
               />
             </div>
           </div>
@@ -229,12 +244,12 @@
               </span>
               <input
                 type="number"
-                class="form-control {{classErro}}"
+                class="form-control {{ classErro }}"
                 placeholder="Qr"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 [(ngModel)]="qr"
-                (keyup)="focusQuiere($event,'q')"
+                (keyup)="focusQuiere($event, 'q')"
               />
             </div>
           </div>
@@ -250,7 +265,7 @@
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 [(ngModel)]="rappy"
-                (keyup)="focusQuiere($event,'r')"
+                (keyup)="focusQuiere($event, 'r')"
               />
             </div>
           </div>
@@ -266,7 +281,7 @@
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 [(ngModel)]="didi"
-                (keyup)="focusQuiere($event,'d')"
+                (keyup)="focusQuiere($event, 'd')"
               />
             </div>
           </div>
@@ -285,7 +300,7 @@
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 [(ngModel)]="recibe"
-                (keyup)="focusQuiere($event,'re')"
+                (keyup)="focusQuiere($event, 're')"
               />
             </div>
           </div>
@@ -301,14 +316,18 @@
                 aria-label="Username"
                 aria-describedby="basic-addon1"
                 [(ngModel)]="vuelto"
-                (keyup)="focusQuiere($event,'v')"
+                (keyup)="focusQuiere($event, 'v')"
               />
             </div>
           </div>
         </div>
 
         <div class="d-grid gap-2 col-6 mx-auto">
-          <button type="button" class="btn btn-outline-success" (click)="facturar()">
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            (click)="facturar()"
+          >
             <i class="fa-regular fa-floppy-disk"></i>
             Guardar
           </button>
@@ -318,36 +337,65 @@
   </div>
 </div>
 
-
 <ng-template #content let-modal>
-	<div class="modal-header">
-		<h4 class="modal-title" id="modal-conceptos">Conceptos</h4>
-		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-	</div>
-	<div class="modal-body">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-conceptos">Conceptos</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
     <ul class="list-group">
-      <li class="list-group-item" (click)="concepto({label:'Factura de venta',value:'FVT'})">Factura de venta</li>
-     <!--  <li class="list-group-item" (click)="concepto({label:'Factura electronica',value:4})">Factura electronica</li> -->
-      <li class="list-group-item" (click)="concepto({label:'Prueba',value:'PPP'})">Prueba</li>
-      <li class="list-group-item" (click)="concepto({label:'Cortesia',value:'COR'})">Cortesia</li>
+      <li
+        class="list-group-item"
+        (click)="concepto({ label: 'Factura de venta', value: 'FVT' })"
+      >
+        Factura de venta
+      </li>
+      <!--  <li class="list-group-item" (click)="concepto({label:'Factura electronica',value:4})">Factura electronica</li> -->
+      <li
+        class="list-group-item"
+        (click)="concepto({ label: 'Prueba', value: 'PPP' })"
+      >
+        Prueba
+      </li>
+      <li
+        class="list-group-item"
+        (click)="concepto({ label: 'Cortesia', value: 'COR' })"
+      >
+        Cortesia
+      </li>
     </ul>
-  
-	</div>
-	<div class="modal-footer">
-	
-	</div>
+  </div>
+  <div class="modal-footer"></div>
 </ng-template>
 
 <ng-template #content2 let-modal>
-	<div class="modal-header">
-		<h4 class="modal-title" id="modal-basic-title">Clientes</h4>
-		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-	</div>
-	<div class="modal-body">
-    
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Clientes</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
     <div class="input-group mb-3">
-      <span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
-      <input (input)="viewTerceros($event)" type="text" class="form-control" placeholder="Buscar cliente" aria-label="Username" aria-describedby="basic-addon1">
+      <span class="input-group-text" id="basic-addon1"
+        ><i class="far fa-user"></i
+      ></span>
+      <input
+        (input)="viewTerceros($event)"
+        type="text"
+        class="form-control"
+        placeholder="Buscar cliente"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+      />
     </div>
 
     <table class="table tableTercero">
@@ -359,34 +407,37 @@
       </thead>
       <tbody>
         <tr *ngFor="let c of arrClient" (click)="tercerosadd(c)">
-          <th scope="row">{{c.documento}}</th>
-          <td>{{c.pnombre}} {{c.snombre}} {{c.papellido}} {{c.sapellido}}</td>
+          <th scope="row">{{ c.document }}</th>
+          <td>
+            {{ c.firstName }} {{ c.secondName }} {{ c.firstLastName }} {{ c.secondLastName }}
+          </td>
         </tr>
       </tbody>
     </table>
-  
-	</div>
-	<div class="modal-footer">
-	
-	</div>
+  </div>
+  <div class="modal-footer"></div>
 </ng-template>
 
 <ng-template #content3 let-modal>
-	<div class="modal-header">
-		<h4 class="modal-title" id="modal-basic-title">Variantes</h4>
-		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-	</div>
-	<div class="modal-body">
-    
-    
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Variantes</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
     <ul class="list-group">
-      <li class="list-group-item" *ngFor="let v of arrModalVariante.variantes; let i = index" (click)="addProducts2(arrModalVariante,i)">
-        {{v.descripcion}}
+      <li
+        class="list-group-item"
+        *ngFor="let v of arrModalVariante.variantes; let i = index"
+        (click)="addProducts2(arrModalVariante, i)"
+      >
+        {{ v.description }}
       </li>
     </ul>
-
-	</div>
-	<div class="modal-footer">
-	
-	</div>
+  </div>
+  <div class="modal-footer"></div>
 </ng-template>

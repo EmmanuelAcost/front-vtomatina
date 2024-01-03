@@ -23,7 +23,7 @@ export class UserGlobal {
 
   verLogin(): Observable<any>{ 
    
-    return this.http.get('usuario');
+    return this.http.get('user');
   }
 
   get users() {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UserGlobal } from '../../services/userGlobal.service';
 
-import { Users,UserInter } from 'src/app/interfaces/users';
+import { Users, UserInter } from 'src/app/interfaces/users';
 
 @Component({
   selector: 'app-home',
@@ -9,12 +9,9 @@ import { Users,UserInter } from 'src/app/interfaces/users';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
+  public infoUser: any;
 
-  public user:Users = UserInter;
-
-  constructor(
-    private userGlobal:UserGlobal,
-  ) { }
+  constructor(private userGlobal: UserGlobal) {}
 
   ngOnInit() {
     this.viewUser();
@@ -22,9 +19,9 @@ export class HomeComponent {
 
   async viewUser() {
     await this.userGlobal.addNewUser();
-    await this.userGlobal.users.subscribe((res:any)=>{
-      this.user = res;
+    await this.userGlobal.users.subscribe((res: any) => {
+      this.infoUser = res;
+      localStorage.setItem("idB",this.infoUser.idstore)
     });
   }
-
 }

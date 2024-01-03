@@ -1,0 +1,115 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <h1>Facturacion</h1>
+
+  <div>
+    <button class="btn btn-success" (click)="crear()" *ngIf="pantalla == 1">
+      Nueva factura
+    </button>
+    <br />
+    <br />
+
+    <div class="row">
+      <div class="col-md-5">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label"
+            >Fecha inicial</label
+          >
+          <input type="date" class="form-control" [(ngModel)]="fecha1" />
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label"
+            >Fecha final</label
+          >
+          <input type="date" class="form-control" [(ngModel)]="fecha2" />
+        </div>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label w-100" for="" style="color: white">2</label>
+        <button
+          class="btn btn-success"
+          (click)="buscarFactura()"
+          *ngIf="pantalla == 1"
+        >
+          Buscar
+        </button>
+      </div>
+    </div>
+    <br />
+    <br />
+
+    <div id="containerLoading" *ngIf="status">
+      <img src="../../assets/loading.gif" alt="Loadng" />
+    </div>
+
+    <div class="table-responsive">
+      <table
+        datatable
+        [dtOptions]="dtOptions"
+        [dtTrigger]="dtTrigger"
+        class="table table-bordered table-sm"
+      >
+        <thead>
+          <tr>
+            <th>N° FACTURA</th>
+            <th>PREFIJO FACTURA</th>
+            <th>TOTAL</th>
+            <th>FECHA</th>
+            <th>DETALLES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let t of tabla"
+            [ngClass]="{ 'table-success': t.estado == 0 }"
+          >
+            <td>{{ t.numdoc }}</td>
+            <td>{{ t.idprefix }}</td>
+            <td>{{ t.valuetotal | currency }}</td>
+            <td>{{ fechaHora(t.datesys) }}</td>
+            <td>
+              <div
+                class="btn-group"
+                role="group"
+                aria-label="Basic outlined example"
+              >
+                <button
+                  class="btn btn-outline-success"
+                  *ngIf="t.status == 1"
+                  (click)="imprimir(t)"
+                >
+                  <i class="fas fa-print"></i>
+                </button>
+                <button
+                  class="btn btn-outline-success"
+                  *ngIf="t.status == 2"
+                  (click)="continuar(t)"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="overlay" *ngIf="pantalla == 2"></div>
+
+  <div *ngIf="pantalla == 2">
+    <div class="container2">
+      <div class="aperura">
+        <h1>Para continuar debes hacer la apertura</h1>
+        <button routerLink="/apertura" class="btn btn-success">
+          Abrir Turno
+        </button>
+        <br />
+        <img class="img-fluid" src="../../../assets/vaso-remove.png" alt="" />
+      </div>
+    </div>
+  </div>
+</div>

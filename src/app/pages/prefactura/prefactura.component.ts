@@ -64,7 +64,6 @@ export class PrefacturaComponent implements OnInit {
         if( turno[0].fechaapertura == turno[0].fechacierre ){
           this.pantalla = 1;
           if( results.length ){
-            console.log(results)
             this.tabla = results;
             this.dtTrigger.next(results);
           }else{

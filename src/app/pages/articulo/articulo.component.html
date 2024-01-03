@@ -1,0 +1,253 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <h1 class="mt-2">Articulos</h1>
+  <div class="mb-3 mt-3">
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      Nuevo Articulo
+    </button>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Crear Articulo
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-4">
+                  <label for="" class="w-100">Codigo interno</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese el codigo interno"
+                    [(ngModel)]="info.code"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="" class="w-100">Codigo de barra</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese el codigo de barra"
+                    [(ngModel)]="info.codbar"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="" class="w-100">Nombre</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese el nombre"
+                    [(ngModel)]="info.name"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="" class="w-100">Categoria</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese categoria"
+                    [(ngModel)]="info.category"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="" class="w-100">iva</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese iva"
+                    [(ngModel)]="info.iva"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="" class="w-100">Impuesto Consumo</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese impo. consumo"
+                    [(ngModel)]="info.impcom"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="" class="w-100">Precio</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese precio"
+                    [(ngModel)]="info.price"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="" class="w-100">Precio 2</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese precio2"
+                    [(ngModel)]="info.price2"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="" class="w-100">Precio 3</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese precio3"
+                    [(ngModel)]="info.price3"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="" class="w-100">Costo</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese costo"
+                    [(ngModel)]="info.cost"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="" class="w-100">Und. de Medida</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese Unidades"
+                    [(ngModel)]="info.uni"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="" class="w-100">Und. de Presentación</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese Unidades"
+                    [(ngModel)]="info.und2"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="" class="w-100">Imagen</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese la url"
+                    [(ngModel)]="info.image"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="" class="w-100">Posición</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese posición"
+                    [(ngModel)]="info.posicion"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="" class="w-100">Stock</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese stock"
+                    [(ngModel)]="info.stock"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-primary" (click)="create()">
+              Crear
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="containerLoading" *ngIf="status">
+      <img src="../../assets/loading.gif" alt="Loadng" />
+    </div>
+  </div>
+  <div>
+    <div class="table-responsive">
+      <table
+        datatable
+        [dtOptions]="dtOptions"
+        [dtTrigger]="dtTrigger"
+        class="table table-bordered table-sm"
+      >
+        <thead>
+          <tr>
+            <th>Codigo</th>
+            <th>Codigo Barra</th>
+            <th>Nombre</th>
+            <th>Precios</th>
+            <th>Impuestos</th>
+            <th>Estados</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let t of table"
+            [ngClass]="{ 'table-success': t.estado == 0 }"
+          >
+            <td>{{ t.code }}</td>
+            <td>{{ t.codbar }}</td>
+            <td>{{ t.name }}</td>
+            <td>{{ t.price | currency }}</td>
+            <td>{{ t.impcom | currency }}</td>
+            <td>{{ t.status == 1 ? "Activo" : "Desactivado" }}</td>
+            <!-- <td>{{ fechaHora(t.datesys) }}</td> -->
+            <!-- <td>
+              <div
+                class="btn-group"
+                role="group"
+                aria-label="Basic outlined example"
+              >
+                <button
+                  class="btn btn-outline-success"
+                  *ngIf="t.factura_num"
+                  (click)="imprimir(t)"
+                >
+                  <i class="fas fa-print"></i>
+                </button>
+                <button
+                  class="btn btn-outline-success"
+                  *ngIf="!t.factura_num"
+                  (click)="continuar(t)"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

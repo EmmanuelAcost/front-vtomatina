@@ -1,6 +1,6 @@
 export interface urlVar {
-    ruta:    string | null;
-    empresa: string | null;
-    doc:     string | null;
-    prefijo: string | null;
+  ruta: string | null;
+  doc: string | null;
+  idprefix: string | null;
+  idstorage: string | null;
 }

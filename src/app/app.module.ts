@@ -8,17 +8,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { DataTablesModule } from "angular-datatables";
+import { DataTablesModule } from 'angular-datatables';
 
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PrefacturaComponent } from './pages/prefactura/prefactura.component';
-import { PrefacturaDetalleComponent } from './pages/prefactura-detalle/prefactura-detalle.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 import { FacturaComponent } from './pages/prints/factura/factura.component';
 import { AperturaComponent } from './pages/apertura/apertura.component';
 import { CierreComponent } from './pages/prints/cierre/cierre.component';
+import { FacturaViewComponent } from './pages/factura/factura.component';
+import { ArticuloComponent } from './pages/articulo/articulo.component';
+import { DetallefacturaComponent } from './pages/detallefactura/detallefactura.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +29,12 @@ import { CierreComponent } from './pages/prints/cierre/cierre.component';
     HomeComponent,
     PrefacturaComponent,
     NavbarComponent,
-    PrefacturaDetalleComponent,
     FacturaComponent,
     AperturaComponent,
-    CierreComponent
+    CierreComponent,
+    FacturaViewComponent,
+    ArticuloComponent,
+    DetallefacturaComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,9 +43,9 @@ import { CierreComponent } from './pages/prints/cierre/cierre.component';
     ReactiveFormsModule,
     HttpClientModule,
     DataTablesModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

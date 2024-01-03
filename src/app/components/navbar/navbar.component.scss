@@ -1,12 +1,7 @@
 .navbar {
   justify-content: space-between;
   padding: 10px 20px;
-  background: linear-gradient(
-    90deg,
-    rgba(165, 247, 39, 0.7) 0%,
-    rgba(255, 247, 34, 0.7) 49%,
-    rgba(165, 247, 39, 0.7) 100%
-  );
+  background-color: rgb(234, 234, 234) !important;
 }
 
 .profile-section {
@@ -21,7 +16,7 @@
 }
 
 .profile-photo {
-  width: 40px;
+  width: 100px;
   height: 40px;
   border-radius: 50%;
   margin-right: 10px;
@@ -29,12 +24,12 @@
 
 .profile-name {
   font-weight: bold;
-  color: #333;
+  color: #3b693d;
 }
 .profile-rol {
   font-weight: bold;
   font-size: 14px;
-  color: #333;
+  color: #3b693d;
 }
 
 .profile-toggle {
@@ -75,7 +70,7 @@
 #sidebar {
   width: 270px;
   height: 89%;
-  background-color: #333;
+  background-color: rgb(234, 234, 234) !important;
   position: fixed;
   left: -270px;
   transition: left 0.3s;
@@ -100,13 +95,14 @@
 }
 
 #sidebar ul li a {
-  color: #6c757d;
+  color: #3b693d;
   text-decoration: none;
   font-size: 16px;
+  font-weight: bold;
 }
 #sidebar ul li a:hover {
   font-weight: bold;
-  color: #cff725;
+  color: #233c24;
 }
 
 .submenu {

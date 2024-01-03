@@ -33,13 +33,19 @@ export class NavbarComponent implements OnInit  {
       name: 'Facturacion',
       icon: 'ti ti-home',
       isSubmenu: false,
-      route: 'prefactura',
+      route: 'factura',
     },
     {
       name: 'Apertura',
       icon: 'ti ti-home',
       isSubmenu: false,
       route: 'apertura',
+    },
+    {
+      name: 'Articulos',
+      icon: 'ti ti-home',
+      isSubmenu: false,
+      route: 'articulo',
     },
   ];
 

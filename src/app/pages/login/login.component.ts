@@ -54,10 +54,11 @@ export class LoginComponent {
     await this.http.auth(user).subscribe( (res:any) => {
       
       this.status = false;
-      const { token } = res;
+      const { token,iduser } = res;
       Loading.remove();
     
       this.storageService.store(AuthConstants.AUTH, token);
+      this.storageService.store('idU', iduser);
       this.router.navigate(['home']);
      
     },
