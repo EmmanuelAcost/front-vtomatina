@@ -31,7 +31,7 @@ export class FacturaViewComponent {
   public userId: any = localStorage.getItem('idU');
   public storeId: any = localStorage.getItem('idB');
   public turnoId: any = localStorage.getItem('idT');
-
+  public dateToday = new Date()
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
@@ -60,7 +60,11 @@ export class FacturaViewComponent {
         if (turno.length == 0) {
           this.pantalla = 2;
         } else {
-          if (turno[0].fechaapertura == turno[0].fechacierre) {
+          const date = new Date(turno[0].fechapening);
+          const endTurn = new Date(this.dateToday.getFullYear(), this.dateToday.getMonth(), this.dateToday.getDate(), 23, 59, 59, 999);
+          const yesterday = new Date(this.dateToday.getFullYear(), this.dateToday.getMonth(), this.dateToday.getDate() - 1, 23, 59, 59, 999);
+
+          if (date > yesterday && date <= endTurn) {
             this.turnoId = turno[0].id;
             localStorage.setItem('idT', turno[0].id);
             this.pantalla = 1;
@@ -71,7 +75,7 @@ export class FacturaViewComponent {
               this.tabla = [];
             }
           } else {
-            this.pantalla = 2;
+            this.pantalla = 3;
           }
         }
 

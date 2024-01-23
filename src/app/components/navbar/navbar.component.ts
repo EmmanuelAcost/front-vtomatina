@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserGlobal } from '../../services/userGlobal.service';
 
-import { Users,UserInter } from 'src/app/interfaces/users';
+import { Users, UserInter } from 'src/app/interfaces/users';
 import { StorageService } from '../../services/storage.service';
 
 @Component({
@@ -10,21 +10,14 @@ import { StorageService } from '../../services/storage.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit  {
+export class NavbarComponent implements OnInit {
   public showNavbar: boolean = true;
   public showProfileOptions: boolean = false;
   public isMenuOpen: boolean = false;
   public isSubmenuOpen: boolean[] = [false, false, false];
   public menuOptions: any[] = [
-   /*  {
-      name: 'Sub Menu',
-      icon: 'ti ti-home',
-      isSubmenu: true,
-      url: 'dashboard',
-      subOptions: ['Subopción 1', 'Subopción 2'],
-    }, */
     {
-      name: 'Home',
+      name: 'Inicio',
       icon: 'ti ti-home',
       isSubmenu: false,
       route: 'home',
@@ -32,30 +25,40 @@ export class NavbarComponent implements OnInit  {
     {
       name: 'Facturacion',
       icon: 'ti ti-home',
-      isSubmenu: false,
-      route: 'factura',
+      isSubmenu: true,
+      subOptions: [
+        { name: 'Facturación', url: 'factura' },
+        { name: 'Apertura', url: 'apertura' },
+        // Más subopciones según sea necesario
+      ],
     },
     {
-      name: 'Apertura',
+      name: 'Maestro Inv.',
       icon: 'ti ti-home',
-      isSubmenu: false,
-      route: 'apertura',
+      isSubmenu: true,
+      subOptions: [
+        { name: 'Articulos', url: 'articulo' },
+        // Más subopciones según sea necesario
+      ],
     },
     {
-      name: 'Articulos',
+      name: 'Reportes',
       icon: 'ti ti-home',
-      isSubmenu: false,
-      route: 'articulo',
+      isSubmenu: true,
+      subOptions: [
+        { name: 'General', url: 'reportes/general' },
+        // Más subopciones según sea necesario
+      ],
     },
   ];
 
-  public user:Users = UserInter;
+  public user: Users = UserInter;
 
   constructor(
-    private router: Router, 
-    private userGlobal:UserGlobal,
-    private storageService:StorageService
-    ) {
+    private router: Router,
+    private userGlobal: UserGlobal,
+    private storageService: StorageService
+  ) {
     this.router.events.subscribe((event) => {
       if (this.router.url === '/login') {
         this.showNavbar = false;
@@ -99,7 +102,7 @@ export class NavbarComponent implements OnInit  {
 
   async viewUser() {
     await this.userGlobal.addNewUser();
-    await this.userGlobal.users.subscribe((res:any)=>{
+    await this.userGlobal.users.subscribe((res: any) => {
       this.user = res;
     });
   }

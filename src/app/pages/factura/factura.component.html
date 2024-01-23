@@ -97,18 +97,32 @@
       </table>
     </div>
   </div>
-
-  <div class="overlay" *ngIf="pantalla == 2"></div>
-
-  <div *ngIf="pantalla == 2">
+  <div class="overlay" *ngIf="pantalla == 2 || pantalla == 3">
     <div class="container2">
       <div class="aperura">
-        <h1>Para continuar debes hacer la apertura</h1>
+        <h1>
+          {{
+            pantalla == 2
+              ? "No hay turno asignado"
+              : pantalla == 3
+              ? "Tu turno ha caducado"
+              : "Hubo un error"
+          }}
+        </h1>
+        <h3>
+          {{
+            pantalla == 2
+              ? "Abre un turno para facturar"
+              : pantalla == 3
+              ? "Cierra el turno y abre un nuevo turno"
+              : "Hubo un error"
+          }}
+        </h3>
+        <h3></h3>
         <button routerLink="/apertura" class="btn btn-success">
           Abrir Turno
         </button>
         <br />
-        <img class="img-fluid" src="../../../assets/vaso-remove.png" alt="" />
       </div>
     </div>
   </div>

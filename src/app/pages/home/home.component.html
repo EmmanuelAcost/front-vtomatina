@@ -1,9 +1,252 @@
 <app-navbar></app-navbar>
 
-<div class="container">
-    <div>
-        BIENVENID@ <br>
-        {{infoUser.user}} <hr>
-        <img class="img-fluid" src="../../../assets/logo.png" alt="">
+<!-- <div class="container" *ngIf="infoUser.rol !== '01'">
+  <div>
+    BIENVENID@ <br />
+    {{ infoUser.user }}
+    <hr />
+    <img class="img-fluid" src="../../../assets/logo.png" alt="" />
+  </div>
+</div> -->
+<div class="content-card row">
+  <div class="c-ard col-md col-12 mr-2 mb-3 mb-md-0">
+    <span class="c-ard-title">Total Venta</span>
+    <span class="c-ard-subtitle">
+      {{ allSales | currency : "USD" : "symbol" : "0.0-0" }}
+    </span>
+    <span class="c-ard-title">Fecha</span>
+    <span class="c-ard-subtitle">{{ date | date : "dd/MM/yyyy" }}</span>
+  </div>
+  <div class="c-ard col-md col-12 mr-2 mb-3 mb-md-0">
+    <span class="c-ard-title">Top 5 De Productos Mas Vendidos</span>
+    <ul>
+      <li *ngFor="let item of productBest; let i = index">
+        {{ i + 1 }}. {{ item?.artnombre }} ({{ item?.cantidad }})
+        {{ item?.total | currency : "USD" : "symbol" : "0.0-0" }}
+      </li>
+    </ul>
+  </div>
+  <div class="c-ard col-md col-12 d-md-flex d-grid">
+    <div class="d-grid col">
+      <span class="c-ard-title">Presupuesto Mes</span>
+      <span class="c-ard-subtitle">
+        {{
+          quotesTotal?.valortotal
+            ? (quotesTotal?.valortotal | currency : "USD" : "symbol" : "0.0-0")
+            : (0 | currency : "USD" : "symbol" : "0.0-0")
+        }}
+      </span>
+      <span class="c-ard-title">Venta Mes</span>
+      <span class="c-ard-subtitle">
+        {{
+          quotesTotal?.vendido
+            ? (quotesTotal?.vendido | currency : "USD" : "symbol" : "0.0-0")
+            : (0 | currency : "USD" : "symbol" : "0.0-0")
+        }}
+      </span>
     </div>
+    <div class="col">
+      <p class="c-ard-title w-100 mb-2">Cumplimiento Mes</p>
+      <p class="c-ard-subtitle w-100 m-0">
+        {{ quotesTotal?.cumplido ? quotesTotal?.cumplido : 0 }}%
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="content-tabs">
+  <h1 class="text-center mb-3">Reportes</h1>
+  <mat-tab-group (selectedTabChange)="onTabChanged($event)">
+    <mat-tab label="Ventas Puntos De Ventas">
+      <div class="content-filter row">
+        <div class="col">
+          <label class="w-100">Fecha Inical</label>
+          <input type="date" [(ngModel)]="initialdate1" />
+        </div>
+        <div class="col">
+          <label class="w-100">Fecha Final</label>
+          <input type="date" [(ngModel)]="finaldate1" />
+        </div>
+        <div class="col-2">
+          <label class="w-100">‎ </label>
+          <button class="btn-search" (click)="search1()">Buscar</button>
+        </div>
+      </div>
+      <h1>Total: {{ totalReport | currency : "USD" : "symbol" : "0.0-0" }}</h1>
+
+      <canvas
+        baseChart
+        [data]="barChartData"
+        [options]="barChartOptions"
+        [type]="'bar'"
+      >
+      </canvas>
+    </mat-tab>
+    <mat-tab label="Ventas Productos">
+      <div class="content-filter row">
+        <div class="col">
+          <label class="w-100">Fecha Inical</label>
+          <input type="date" [(ngModel)]="initialdate1" />
+        </div>
+        <div class="col">
+          <label class="w-100">Fecha Final</label>
+          <input type="date" [(ngModel)]="finaldate1" />
+        </div>
+        <div class="col">
+          <label class="w-100">Bodega</label>
+          <p-dropdown
+            [options]="stores"
+            [(ngModel)]="selectStore"
+            optionLabel="name"
+            [filter]="true"
+            filterBy="name"
+            [showClear]="true"
+            placeholder="Seleccionar"
+          >
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center gap-2" *ngIf="selectStore">
+                <div>{{ selectStore.name }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-store pTemplate="item">
+              <div class="flex align-items-center gap-2">
+                <div>{{ store.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+        <div class="col-2">
+          <label class="w-100">‎ </label>
+          <button class="btn-search" (click)="search2()">Buscar</button>
+        </div>
+      </div>
+      <h1>Total: {{ totalReport2 | currency : "USD" : "symbol" : "0.0-0" }}</h1>
+      <canvas
+        baseChart
+        [data]="barChartData2"
+        [options]="barChartOptions2"
+        [type]="'bar'"
+      >
+      </canvas>
+    </mat-tab>
+    <mat-tab label="Ventas Medios De Pagos">
+      <div class="content-filter row">
+        <div class="col">
+          <label class="w-100">Fecha Inical</label>
+          <input type="date" [(ngModel)]="initialdate1" />
+        </div>
+        <div class="col">
+          <label class="w-100">Fecha Final</label>
+          <input type="date" [(ngModel)]="finaldate1" />
+        </div>
+        <div class="col">
+          <label class="w-100">Bodega</label>
+          <p-dropdown
+            [options]="stores"
+            [(ngModel)]="selectStore"
+            optionLabel="name"
+            [filter]="true"
+            filterBy="name"
+            [showClear]="true"
+            placeholder="Seleccionar"
+          >
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center gap-2" *ngIf="selectStore">
+                <div>{{ selectStore.name }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-store pTemplate="item">
+              <div class="flex align-items-center gap-2">
+                <div>{{ store.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+        <div class="col-2">
+          <label class="w-100">‎ </label>
+          <button class="btn-search" (click)="search3()">Buscar</button>
+        </div>
+      </div>
+      <h1>Total: {{ totalReport3 | currency : "USD" : "symbol" : "0.0-0" }}</h1>
+      <canvas
+        baseChart
+        [data]="barChartData3"
+        [options]="barChartOptions3"
+        [type]="'bar'"
+      >
+      </canvas>
+    </mat-tab>
+    <mat-tab label="Venta Presupuesto">
+      <div class="content-filter row">
+        <div class="col">
+          <label class="w-100">Periodo</label>
+          <p-calendar
+            [view]="'month'"
+            [dateFormat]="'mm/yy'"
+            [yearNavigator]="true"
+            [monthNavigator]="true"
+            [(ngModel)]="month"
+          ></p-calendar>
+          <!-- <input type="date" [(ngModel)]="initialdate1" /> -->
+        </div>
+        <div class="col">
+          <label class="w-100">Bodega</label>
+          <p-dropdown
+            [options]="stores"
+            [(ngModel)]="selectStore"
+            optionLabel="name"
+            [filter]="true"
+            filterBy="name"
+            [showClear]="true"
+            placeholder="Seleccionar"
+          >
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center gap-2" *ngIf="selectStore">
+                <div>{{ selectStore.name }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-store pTemplate="item">
+              <div class="flex align-items-center gap-2">
+                <div>{{ store.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+        <div class="col-2">
+          <label class="w-100">‎ </label>
+          <button class="btn-search" (click)="search4()">Buscar</button>
+        </div>
+      </div>
+      <div class="d-flex">
+        <h3 class="text-center col-4">
+          Presupuesto<br />
+          {{ totalReport4 | currency : "USD" : "symbol" : "0.0-0" }}
+        </h3>
+        <h3 class="text-center col-4">
+          Vendido<br />
+          {{ totalReport4_1 | currency : "USD" : "symbol" : "0.0-0" }}
+        </h3>
+        <h3 class="text-center col-4">
+          Cumplimiento<br />
+          {{ (totalReport4_1 / totalReport4) * 100 | number : "1.0-0" }}%
+        </h3>
+      </div>
+      <canvas
+        baseChart
+        [data]="barChartData4"
+        [options]="barChartOptions4"
+        [type]="'bar'"
+      >
+      </canvas>
+    </mat-tab>
+    <mat-tab label="Venta Meses">
+      <canvas
+        baseChart
+        [data]="barChartData5"
+        [options]="barChartOptions5"
+        [type]="'bar'"
+      >
+      </canvas>
+    </mat-tab>
+  </mat-tab-group>
 </div>

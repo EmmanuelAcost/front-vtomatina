@@ -12,6 +12,7 @@ import { CierreComponent } from './pages/prints/cierre/cierre.component';
 import { FacturaViewComponent } from './pages/factura/factura.component';
 import { ArticuloComponent } from './pages/articulo/articulo.component';
 import { DetallefacturaComponent } from './pages/detallefactura/detallefactura.component';
+import { GeneralComponent } from './pages/reportes/general/general.component';
 
 const routes: Routes = [
   {
@@ -69,10 +70,15 @@ const routes: Routes = [
     path: 'cierre',
     component: CierreComponent,
   },
+  {
+    canActivate: [HomeGuard],
+    path: 'reportes/general',
+    component: GeneralComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

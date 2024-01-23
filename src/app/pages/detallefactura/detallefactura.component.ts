@@ -456,7 +456,7 @@ export class DetallefacturaComponent {
                 console.log(err);
               }
             );
-            // this.router.navigate(['factura']);
+            this.router.navigate(['factura']);
           },
           (err: any) => {
             Loading.remove();

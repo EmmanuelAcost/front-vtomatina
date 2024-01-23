@@ -1,0 +1,24 @@
+input {
+  height: 40px;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+:host ::ng-deep .p-dropdown {
+  max-height: 40px;
+  .p-dropdown-label {
+    padding-top: 8px;
+  }
+  ul{
+    padding: 0;
+  }
+}
+:host ::ng-deep .p-calendar {
+  max-height: 40px;
+}
+button {
+  max-height: 40px;
+  border: none;
+  border-radius: 6px;
+  max-width: 200px;
+  width: 100%;
+}

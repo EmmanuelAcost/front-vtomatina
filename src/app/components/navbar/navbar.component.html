@@ -50,8 +50,8 @@
               [ngClass]="{
                 'selected-option': isOptionActive({ url: subOption })
               }"
-              [routerLink]="subOption"
-              >{{ subOption }}</a
+              (click)="navigateTo(subOption.url)"
+              >{{ subOption.name }}</a
             >
           </li>
         </ul>

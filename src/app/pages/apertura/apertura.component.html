@@ -1,40 +1,124 @@
 <app-navbar></app-navbar>
 
 <div class="container">
+  <h1 class="mt-2">Turnos</h1>
+  <div class="mb-3 mt-3">
+    <button
+      type="button"
+      class="btn btn-success"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+      (click)="openModal()"
+    >
+      Apertura
+    </button>
+  </div>
 
-    <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active" aria-current="page">Apertura</li>
-        </ol>
-    </nav>
-
-    <button class="btn btn-success" (click)="crear()" >Apertura</button>
-    <br> <br>
-
-    <div class="table-responsive">
-        <table datatable  [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="table table-bordered table-sm" >
-            <thead>
-            <tr class="table-success">
-                <th>TURNO</th>
-                <th>HORA DE APERTURA</th>
-                <th>HORA DE CIERRE</th>
-                <th>ACCIONES</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let t of tabla" [ngClass]="{'table-success': t.estado == 0}">
-                    <td>{{t.idturno}}</td>
-                    <td>{{fechaHora(t.fechaapertura)}}</td>
-                    <td>{{fechaHora(t.fechacierre)}}</td>
-                    <td>
-                        <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <button class="btn btn-outline-success" (click)="continuar(t)"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="btn btn-outline-primary" (click)="imprimir(t)"><i class="fas fa-print"></i></button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+  <div class="table-responsive">
+    <table
+      datatable
+      [dtOptions]="dtOptions"
+      [dtTrigger]="dtTrigger"
+      class="table table-bordered table-sm"
+    >
+      <thead>
+        <tr class="table-success">
+          <th>TURNO</th>
+          <th>BODEGA</th>
+          <th>BASE</th>
+          <th>HORA DE APERTURA</th>
+          <th>HORA DE CIERRE</th>
+          <th>ACCIONES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let t of table"
+          [ngClass]="{ 'table-success': t.estado == 0 }"
+        >
+          <td>{{ t.idturn }}</td>
+          <td>{{ t.idstore }}</td>
+          <td>{{ t.base | currency : "USD" : "symbol" : "1.0-0" }}</td>
+          <td>{{ fechaHora(t.fechaapertura) }}</td>
+          <td>{{ fechaHora(t.fechacierre) }}</td>
+          <td>
+            <div
+              class="btn-group"
+              role="group"
+              aria-label="Basic outlined example"
+            >
+              <button class="btn btn-outline-success" (click)="continuar(t)">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button class="btn btn-outline-primary" (click)="imprimir(t)">
+                <i class="fas fa-print"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Abrir Turno</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-6">
+              <label class="w-100">Bodega</label>
+              <input type="text" disabled value="{{ infoStore?.name }}" />
+            </div>
+            <div class="col-6">
+              <label class="w-100">Usuario</label>
+              <input type="text" disabled value="{{ infoUser }}" />
+            </div>
+            <div class="col-6">
+              <label class="w-100">Fecha Apertura</label>
+              <p-calendar
+                [showTime]="true"
+                [timeOnly]="false"
+                [hourFormat]="'24'"
+                [dateFormat]="'dd/mm/yy'"
+                [(ngModel)]="date"
+                [yearNavigator]="true"
+                [monthNavigator]="true"
+                [disabled]="true"
+              >
+              </p-calendar>
+            </div>
+            <div class="col-6">
+              <label class="w-100">Base</label>
+              <input type="text" [(ngModel)]="base" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-success" (click)="create()">
+          Crear
+        </button>
+      </div>
     </div>
-
+  </div>
 </div>
