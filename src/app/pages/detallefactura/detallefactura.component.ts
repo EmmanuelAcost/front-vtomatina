@@ -49,6 +49,7 @@ export class DetallefacturaComponent {
     doc: '',
     idprefix: '',
     idstorage: '',
+    idinvoice: ''
   };
 
   closeResult = '';
@@ -79,6 +80,7 @@ export class DetallefacturaComponent {
       this.arrVarUrl.doc = params.get('doc');
       this.arrVarUrl.idprefix = params.get('idprefix');
       this.arrVarUrl.idstorage = params.get('idstorage');
+      this.arrVarUrl.idinvoice = params.get('idinvoice');
     });
   }
 
@@ -264,82 +266,123 @@ export class DetallefacturaComponent {
     this.modalService.dismissAll(ModalDismissReasons.BACKDROP_CLICK);
   }
 
-  focusQuiere(even: any, tipo: string) {
-    if (tipo == 't') {
-      const searchTerm = even.srcElement.value;
+  // focusQuiere(even: any, tipo: string) {
+  //   if (tipo == 't') {
+  //     const searchTerm = even.srcElement.value;
 
-      let suma = this.efectivo + this.tarjetas + this.qr;
+  //     let suma = this.efectivo + this.tarjetas + this.qr;
 
-      if (suma != this.total) {
-        this.classErro = 'is-invalid';
-      } else {
-        this.classErro = '';
+  //     if (suma != this.total) {
+  //       this.classErro = 'is-invalid';
+  //     } else {
+  //       this.classErro = '';
+  //     }
+
+  //     this.rappy = 0;
+  //     this.didi = 0;
+  //     this.vuelto = 0;
+  //     this.recibe = 0;
+  //   } else if (tipo == 'e') {
+  //     const searchTerm = even.srcElement.value;
+
+  //     let suma = this.efectivo + this.tarjetas + this.qr;
+
+  //     if (suma != this.total) {
+  //       this.classErro = 'is-invalid';
+  //     } else {
+  //       this.classErro = '';
+  //     }
+
+  //     this.rappy = 0;
+  //     this.didi = 0;
+  //     this.vuelto = 0;
+  //     this.recibe = 0;
+  //   } else if (tipo == 'q') {
+  //     const searchTerm = even.srcElement.value;
+
+  //     let suma = this.efectivo + this.tarjetas + this.qr;
+
+  //     if (suma != this.total) {
+  //       this.classErro = 'is-invalid';
+  //     } else {
+  //       this.classErro = '';
+  //     }
+
+  //     this.rappy = 0;
+  //     this.didi = 0;
+  //     this.vuelto = 0;
+  //     this.recibe = 0;
+  //   } else if (tipo == 'r') {
+  //     const searchTerm = even.srcElement.value;
+  //     this.efectivo = 0;
+  //     this.tarjetas = 0;
+  //     this.qr = 0;
+  //     this.didi = 0;
+  //     this.vuelto = 0;
+  //     this.recibe = 0;
+  //   } else if (tipo == 'd') {
+  //     const searchTerm = even.srcElement.value;
+  //     this.efectivo = 0;
+  //     this.tarjetas = 0;
+  //     this.qr = 0;
+  //     this.rappy = 0;
+  //     this.vuelto = 0;
+  //     this.recibe = 0;
+  //   } else if (tipo == 're') {
+  //     const searchTerm = even.srcElement.value;
+  //     const tt = this.efectivo;
+  //     this.vuelto = searchTerm - tt;
+  //   } else if (tipo == 'b') {
+  //     const searchTerm = even.srcElement.value;
+
+  //     this.products2 = this.products;
+
+  //     this.products2 = this.products.filter((element: any) =>
+  //       element.name.toUpperCase().includes(searchTerm.toUpperCase())
+  //     );
+  //   }
+  // }
+
+  focusQuiere(event: any, tipo: string) {
+    const valorIngresado = Number(event.target.value);
+
+    if (tipo === 're') {
+      // Actualizar el valor de efectivo recibido
+      this.recibe = valorIngresado;
+
+      // Calcular el vuelto como la diferencia entre lo recibido y el efectivo actual
+      this.vuelto = this.recibe - this.efectivo;
+
+      // Asegurarse de que el vuelto no sea negativo
+      if (this.vuelto < 0) this.vuelto = 0;
+    } else {
+      // Manejo de otros tipos de pagos (tarjetas, QR, Rappi, Didi)
+      let sumaOtrosPagos = this.tarjetas + this.qr + this.rappy + this.didi;
+
+      if (tipo === 't') {
+        sumaOtrosPagos += valorIngresado - this.tarjetas;
+        this.tarjetas = valorIngresado;
+      } else if (tipo === 'q') {
+        sumaOtrosPagos += valorIngresado - this.qr;
+        this.qr = valorIngresado;
+      } else if (tipo === 'r') {
+        sumaOtrosPagos += valorIngresado - this.rappy;
+        this.rappy = valorIngresado;
+      } else if (tipo === 'd') {
+        sumaOtrosPagos += valorIngresado - this.didi;
+        this.didi = valorIngresado;
       }
 
-      this.rappy = 0;
-      this.didi = 0;
-      this.vuelto = 0;
-      this.recibe = 0;
-    } else if (tipo == 'e') {
-      const searchTerm = even.srcElement.value;
+      // Ajustar el valor de efectivo en función de los otros métodos de pago
+      this.efectivo = this.total - sumaOtrosPagos;
+      if (this.efectivo < 0) this.efectivo = 0;
 
-      let suma = this.efectivo + this.tarjetas + this.qr;
-
-      if (suma != this.total) {
-        this.classErro = 'is-invalid';
-      } else {
-        this.classErro = '';
-      }
-
-      this.rappy = 0;
-      this.didi = 0;
-      this.vuelto = 0;
-      this.recibe = 0;
-    } else if (tipo == 'q') {
-      const searchTerm = even.srcElement.value;
-
-      let suma = this.efectivo + this.tarjetas + this.qr;
-
-      if (suma != this.total) {
-        this.classErro = 'is-invalid';
-      } else {
-        this.classErro = '';
-      }
-
-      this.rappy = 0;
-      this.didi = 0;
-      this.vuelto = 0;
-      this.recibe = 0;
-    } else if (tipo == 'r') {
-      const searchTerm = even.srcElement.value;
-      this.efectivo = 0;
-      this.tarjetas = 0;
-      this.qr = 0;
-      this.didi = 0;
-      this.vuelto = 0;
-      this.recibe = 0;
-    } else if (tipo == 'd') {
-      const searchTerm = even.srcElement.value;
-      this.efectivo = 0;
-      this.tarjetas = 0;
-      this.qr = 0;
-      this.rappy = 0;
-      this.vuelto = 0;
-      this.recibe = 0;
-    } else if (tipo == 're') {
-      const searchTerm = even.srcElement.value;
-      const tt = this.efectivo;
-      this.vuelto = searchTerm - tt;
-    } else if (tipo == 'b') {
-      const searchTerm = even.srcElement.value;
-
-      this.products2 = this.products;
-
-      this.products2 = this.products.filter((element: any) =>
-        element.name.toUpperCase().includes(searchTerm.toUpperCase())
-      );
+      // Recalcular el vuelto
+      this.vuelto = this.recibe - this.efectivo;
+      if (this.vuelto < 0) this.vuelto = 0;
     }
   }
+
 
   async facturar() {
     if (this.varClient.label == '' && this.varClient.value == '') {
@@ -425,7 +468,6 @@ export class DetallefacturaComponent {
           Loading.remove();
           return;
         }
-
         const arr = {
           idprefix: this.arrVarUrl.idprefix,
           third: this.varClient.value,
@@ -437,8 +479,7 @@ export class DetallefacturaComponent {
           // numdoc: this.arrVarUrl.doc,
           // valueshange: this.vuelto,
         };
-
-        this.http.savefactura(arr, this.arrVarUrl.doc).subscribe(
+        this.http.savefactura(arr, this.arrVarUrl.idinvoice).subscribe(
           (res: any) => {
             Loading.remove();
             let arr = {
@@ -473,6 +514,14 @@ export class DetallefacturaComponent {
     );
   }
   printsHtml(datos: any) {
+    window.open(`print_kitchen;data=${JSON.stringify(datos)}`, '_blank');
     window.open(`print_factura;data=${JSON.stringify(datos)}`, '_blank');
+  }
+  transferirARappi() {
+    this.rappy = this.total;
+    this.efectivo = 0;
+    this.tarjetas = 0;
+    this.qr = 0;
+    this.didi = 0;
   }
 }

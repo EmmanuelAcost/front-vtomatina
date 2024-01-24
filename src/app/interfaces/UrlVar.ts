@@ -3,4 +3,5 @@ export interface urlVar {
   doc: string | null;
   idprefix: string | null;
   idstorage: string | null;
+  idinvoice: string | null;
 }

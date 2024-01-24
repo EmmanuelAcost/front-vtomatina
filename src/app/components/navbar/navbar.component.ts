@@ -21,37 +21,45 @@ export class NavbarComponent implements OnInit {
       icon: 'ti ti-home',
       isSubmenu: false,
       route: 'home',
+      allowedRoles: ['01', '02']
     },
     {
       name: 'Facturacion',
       icon: 'ti ti-home',
       isSubmenu: true,
+      allowedRoles: ['01', '02'],
       subOptions: [
-        { name: 'Facturación', url: 'factura' },
-        { name: 'Apertura', url: 'apertura' },
-        // Más subopciones según sea necesario
+        {
+          name: 'Facturación',
+          url: 'factura',
+          allowedRoles: ['01', '02'], // Roles permitidos
+        },
+        {
+          name: 'Apertura',
+          url: 'apertura',
+          allowedRoles: ['01', '02'], // Roles permitidos
+        },
       ],
     },
     {
       name: 'Maestro Inv.',
       icon: 'ti ti-home',
       isSubmenu: true,
+      allowedRoles: ['01'],
       subOptions: [
-        { name: 'Articulos', url: 'articulo' },
-        // Más subopciones según sea necesario
+        { name: 'Articulos', url: 'articulo', allowedRoles: ['01'], },
       ],
     },
     {
       name: 'Reportes',
       icon: 'ti ti-home',
       isSubmenu: true,
+      allowedRoles: ['01'],
       subOptions: [
-        { name: 'General', url: 'reportes/general' },
-        // Más subopciones según sea necesario
+        { name: 'General', url: 'reportes/general', allowedRoles: ['01'], },
       ],
     },
   ];
-
   public user: Users = UserInter;
 
   constructor(
@@ -109,7 +117,10 @@ export class NavbarComponent implements OnInit {
 
   navigateTo(route: string) {
     this.router.navigate([route]);
+    this.isMenuOpen = !this.isMenuOpen;
   }
-
+  canDisplaySubmenu(option: any): boolean {
+    return option.isSubmenu && option.subOptions.some((subOption: { name: string; url: string; allowedRoles: string[] }) => subOption.allowedRoles.includes(this.user.rol ? this.user.rol : ''));
+  }
 
 }

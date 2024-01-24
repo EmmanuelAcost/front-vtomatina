@@ -26,6 +26,7 @@ import { GeneralComponent } from './pages/reportes/general/general.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
+import { KitchenorderComponent } from './pages/prints/kitchenorder/kitchenorder.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { TableModule } from 'primeng/table';
     ArticuloComponent,
     DetallefacturaComponent,
     GeneralComponent,
+    KitchenorderComponent,
   ],
   imports: [
     BrowserModule,

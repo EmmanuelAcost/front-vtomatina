@@ -49,7 +49,6 @@ export class AperturaComponent implements OnInit {
   openModal() {
     this.http.getStore(this.storeSession).subscribe((res: any) => {
       this.infoStore = res
-      console.log(res)
     })
   }
 

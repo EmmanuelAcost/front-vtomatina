@@ -1,27 +1,19 @@
 <app-navbar></app-navbar>
 <div class="container-fluid">
   <div class="row">
-    <!-- <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a routerLink="/prefactura">Facturacion</a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">
-          Factura detalle
-        </li>
-      </ol>
-    </nav> -->
     <!-- DIVICION DE CATEGORIAS -->
     <div class="col-md-2">
       <div class="content-cat">
-        <div
-          *ngFor="let c of categorias"
-          (click)="viewProducts(c)"
-          class="col-11 mx-auto m-2"
-          role="group"
-          aria-label="Basic checkbox toggle button group"
-        >
-          <label class="" for="btncheck1">{{ c.detail }}</label>
+        <div *ngFor="let c of categorias">
+          <div
+            *ngIf="c.type != 'M'"
+            (click)="viewProducts(c)"
+            class="col-11 mx-auto m-2"
+            role="group"
+            aria-label="Basic checkbox toggle button group"
+          >
+            <label class="" for="btncheck1">{{ c.detail }}</label>
+          </div>
         </div>
       </div>
     </div>
@@ -262,9 +254,10 @@
                 type="number"
                 class="form-control"
                 placeholder="Rappi"
-                aria-label="Username"
+                aria-label="Rappi"
                 aria-describedby="basic-addon1"
                 [(ngModel)]="rappy"
+                (click)="transferirARappi()"
                 (keyup)="focusQuiere($event, 'r')"
               />
             </div>
@@ -289,34 +282,35 @@
 
         <div class="row m-2">
           <div class="col-md-12">
+            <label class="label-special">Dinero Recibido</label>
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">
+              <!-- <span class="input-group-text" id="basic-addon1">
                 <i class="fa-solid fa-money-bill"></i>
-              </span>
+              </span> -->
               <input
                 type="number"
                 class="form-control"
-                placeholder="Username"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
+                placeholder="Recibido"
+                aria-label="Recibido"
                 [(ngModel)]="recibe"
                 (keyup)="focusQuiere($event, 're')"
               />
             </div>
           </div>
           <div class="col-md-12">
+            <label class="label-special">Cambio</label>
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">
+              <!-- <span class="input-group-text" id="basic-addon1">
                 <i class="fa-solid fa-arrow-right"></i>
-              </span>
+              </span> -->
               <input
                 type="number"
                 class="form-control"
-                placeholder="Username"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
+                placeholder="Vuelto"
+                aria-label="Vuelto"
                 [(ngModel)]="vuelto"
                 (keyup)="focusQuiere($event, 'v')"
+                readonly
               />
             </div>
           </div>
@@ -409,7 +403,8 @@
         <tr *ngFor="let c of arrClient" (click)="tercerosadd(c)">
           <th scope="row">{{ c.document }}</th>
           <td>
-            {{ c.firstName }} {{ c.secondName }} {{ c.firstLastName }} {{ c.secondLastName }}
+            {{ c.firstName }} {{ c.secondName }} {{ c.firstLastName }}
+            {{ c.secondLastName }}
           </td>
         </tr>
       </tbody>

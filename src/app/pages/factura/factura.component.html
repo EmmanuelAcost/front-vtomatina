@@ -85,6 +85,13 @@
                 </button>
                 <button
                   class="btn btn-outline-success"
+                  *ngIf="t.status == 1"
+                  (click)="imprimir2(t)"
+                >
+                  <i class="fa-solid fa-kitchen-set"></i>
+                </button>
+                <button
+                  class="btn btn-outline-success"
                   *ngIf="t.status == 2"
                   (click)="continuar(t)"
                 >

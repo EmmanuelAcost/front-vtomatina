@@ -1,0 +1,24 @@
+<div class="container">
+  <header class="header">
+    <p><strong>FECHA:</strong> {{ facturas.date | date : "dd/MM/yyyy" }}</p>
+    <p>
+      <strong>FACTURA DE VENTA:</strong>
+      {{ facturas.idprefix }}
+      {{ facturas.numdoc }}
+      ({{ facturas.id }})
+    </p>
+    <p><strong>CLIENTE:</strong> {{ facturas.client_name }}</p>
+    <p><strong>NIT:</strong> {{ facturas.third_document | number }}</p>
+  </header>
+  <div class="ticket-separator"></div>
+  <section>
+    <table>
+      <tbody>
+        <tr *ngFor="let f of detail">
+          <td class="quantity">{{ f.item }}</td>
+          <td class="name">{{ f.article_name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

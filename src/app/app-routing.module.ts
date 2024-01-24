@@ -13,6 +13,7 @@ import { FacturaViewComponent } from './pages/factura/factura.component';
 import { ArticuloComponent } from './pages/articulo/articulo.component';
 import { DetallefacturaComponent } from './pages/detallefactura/detallefactura.component';
 import { GeneralComponent } from './pages/reportes/general/general.component';
+import { KitchenorderComponent } from './pages/prints/kitchenorder/kitchenorder.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,11 @@ const routes: Routes = [
     canActivate: [HomeGuard],
     path: 'print_factura',
     component: FacturaComponent,
+  },
+  {
+    canActivate: [HomeGuard],
+    path: 'print_kitchen',
+    component: KitchenorderComponent,
   },
   {
     canActivate: [HomeGuard],

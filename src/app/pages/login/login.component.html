@@ -2,7 +2,19 @@
   <div class="forms-container">
     <div class="signin-signup">
       <form [formGroup]="createUser" (ngSubmit)="addUser()">
-        <img src="../../../assets/logo.png" width="300px" alt="" srcset="" />
+        <img
+          src="../../../assets/logo.png"
+          class="desktop-logo"
+          alt="Logo"
+          width="300px"
+          />
+          <img
+          src="../../../assets/logoWhite.png"
+          class="mobile-logo"
+          alt="Logo Mobile"
+          width="300px"
+        />
+
         <h2 class="title">Iniciar sesión</h2>
         <div>
           <input
@@ -30,7 +42,7 @@
   </div>
   <div class="panels-container">
     <div class="panel left-panel">
-      <img src="../../../assets/logo.png" class="image" alt="" />
+      <img src="../../../assets/logoWhite.png" class="image" alt="" />
     </div>
   </div>
 </div>

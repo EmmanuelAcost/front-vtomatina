@@ -122,6 +122,7 @@ export class FacturaViewComponent {
               doc: numdoc,
               idprefix: idprefix,
               idstorage: idstorage,
+              idinvoice: id
             },
           ]);
         });
@@ -143,6 +144,7 @@ export class FacturaViewComponent {
         doc: numdoc,
         idprefix: idprefix,
         idstorage: idstorage,
+        idinvoice: id
       },
     ]);
   }
@@ -153,8 +155,6 @@ export class FacturaViewComponent {
 
   async imprimir(t: any) {
     Loading.standard('Loading...');
-    console.log(t)
-
     let arr = {
       idstorage: t.idstorage,
       idprefix: t.idprefix,
@@ -174,5 +174,28 @@ export class FacturaViewComponent {
 
   printsHtml(datos: any) {
     window.open(`print_factura;data=${JSON.stringify(datos)}`, '_blank');
+  }
+  
+
+  async imprimir2(t: any) {
+    Loading.standard('Loading...');
+    let arr = {
+      idstorage: t.idstorage,
+      idprefix: t.idprefix,
+      doc: t.numdoc,
+    };
+    await this.http.view(arr).subscribe(
+      (res: PrintsFacturas) => {
+        Loading.remove();
+        this.printsHtml2(res);
+      },
+      (err: any) => {
+        Loading.remove();
+        console.log(err);
+      }
+    );
+  }
+  printsHtml2(datos: any) {
+    window.open(`print_kitchen;data=${JSON.stringify(datos)}`, '_blank');
   }
 }

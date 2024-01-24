@@ -22,7 +22,6 @@ export class GeneralComponent implements OnInit {
   start() {
     this.http.stores().subscribe((res: any) => {
       this.countries = res
-      console.log(this.countries)
     })
   }
   formatearFecha(fechaString: string): string {
@@ -34,7 +33,6 @@ export class GeneralComponent implements OnInit {
   }
   search() {
     this.http.getReportGeneral(this.formatearFecha(this.dateStart), this.formatearFecha(this.dateEnd), this.selectedCountry?.code).subscribe((res: any) => {
-      console.log(res)
       this.products = res
       res.map((item: any) => { this.total = this.total + parseFloat(item.total) })
     })
